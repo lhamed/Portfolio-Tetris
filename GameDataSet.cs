@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Portfolio_Tetris
 {
     /// <summary>
@@ -10,11 +12,16 @@ namespace Portfolio_Tetris
         public FlyingBlock currentFlyingBlock;
         public bool[,] fallenBlocks;
 
+        public Dictionary<int, BlockShapeData[]> blockShapeDictionary = new Dictionary<int, BlockShapeData[]>();
+        
         public GameDataSet(int height, int width)
         {
             this.height = height;
             this.width = width;
             fallenBlocks = new bool[height, width];
+            
+            //TODO blockShapeDataDictonary 준비하기 TODO 
+            
         }
 
         public void AddFlyingBlock(FlyingBlock block)
@@ -34,6 +41,16 @@ namespace Portfolio_Tetris
     public class FlyingBlock
     {
         public int Height;
+        public int width;
+
+        public int shapeKey;
+        public int shapeRotateIndex;
+    }
+
+    public class BlockShapeData
+    {
+        public int Key;
+        public int rotateIndex;
         public bool[,] Shape;
     }
 }
