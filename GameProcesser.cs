@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Portfolio_Tetris
 {
@@ -9,8 +10,11 @@ namespace Portfolio_Tetris
     {
         public GameDataSet Process(GameDataSet dataSet, InputHandler inputHandler)
         {
+            // 새 블록 만들기 ( 블록이 없다면 )
+            var dataSetAfterCreation = ProcessCreateBlock(dataSet);
+
             // 유저 인풋 처리 ( 블록 회전 )
-            var dataSetAfterInput = ProcessUserInput(dataSet,inputHandler);
+            var dataSetAfterInput = ProcessUserInput(dataSetAfterCreation, inputHandler);
 
             // 게임 내 중력 처리 ( 한칸 떨어지게 )
             var dataSetAfterGravity = ProcessGravity(dataSetAfterInput);
@@ -21,6 +25,10 @@ namespace Portfolio_Tetris
             return dataSetAfterClearBlock;
         }
 
+        GameDataSet ProcessCreateBlock(GameDataSet dataSet)
+        {
+            return dataSet;
+        }
 
         GameDataSet ProcessUserInput(GameDataSet dataSet, InputHandler inputHandler)
         {
@@ -30,16 +38,18 @@ namespace Portfolio_Tetris
                 // 처리할 인풋이 있다. 
                 if (inputHandler.currentPressedKey == ConsoleKey.RightArrow)
                 {
-                    dataSet.currentFlyingBlock.width += 1; 
+                    dataSet.currentFlyingBlock.width += 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
                 }
-                else  if (inputHandler.currentPressedKey == ConsoleKey.LeftArrow)
+                else if (inputHandler.currentPressedKey == ConsoleKey.LeftArrow)
                 {
-                    dataSet.currentFlyingBlock.width -= 1; 
+                    dataSet.currentFlyingBlock.width -= 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
                 }
-                else  if (inputHandler.currentPressedKey == ConsoleKey.LeftArrow)
+                else if (inputHandler.currentPressedKey == ConsoleKey.UpArrow)
                 {
-                    //todo 블록을 돌린다. 
+                    dataSet.currentFlyingBlock.shapeRotateIndex += 1; // TODO 3을 넘으면 0으로 가도록 해야한다. (회전경우의수 한정)
                 }
+
+                return dataSet;
             }
             else
             {
@@ -50,12 +60,39 @@ namespace Portfolio_Tetris
 
         GameDataSet ProcessGravity(GameDataSet dataSet)
         {
-            return null;
+            dataSet.currentFlyingBlock.Height -= 1;
+            return dataSet;
         }
 
         GameDataSet ClearFullBlock(GameDataSet dataSet)
         {
-            return null;
+            var possibleClearIndex = new List<int>();
+            var blocks = dataSet.fallenBlocks;
+
+            // 모든 행을 탐색 
+            for (int i = 0; i < blocks.GetLength(0); i++)
+            {
+                // 모든 열이 true 인지 탐색 
+                for (int j = 0; j < blocks.GetLength(1); j++)
+                {
+                    // 하나라도 false 라면 다음 행으로 넘어가야한다. 
+                    if (blocks[i, j] == false)
+                    {
+                        break;
+                    }
+                    if (blocks[i, blocks.GetLength(1) - 1])
+                    {
+                        // 모두 true 이므로 사라질 수 있는 행이다. 
+                        possibleClearIndex.Add(i);
+                    }
+                }
+            }
+
+            foreach (var index in possibleClearIndex)
+            {
+                dataSet.ClearLineNumber(index);
+            }
+            return dataSet;
         }
     }
 }

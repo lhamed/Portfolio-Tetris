@@ -13,15 +13,14 @@ namespace Portfolio_Tetris
         public bool[,] fallenBlocks;
 
         public Dictionary<int, BlockShapeData[]> blockShapeDictionary = new Dictionary<int, BlockShapeData[]>();
-        
+
         public GameDataSet(int height, int width)
         {
             this.height = height;
             this.width = width;
             fallenBlocks = new bool[height, width];
-            
+
             //TODO blockShapeDataDictonary 준비하기 TODO 
-            
         }
 
         public void AddFlyingBlock(FlyingBlock block)
@@ -31,7 +30,13 @@ namespace Portfolio_Tetris
             {
                 //TODO 
             }
+
             currentFlyingBlock = block;
+        }
+
+        public void ClearLineNumber(int index)
+        {
+            // TODO 특정 줄을 모두 false로 바꾼다. 
         }
     }
 
