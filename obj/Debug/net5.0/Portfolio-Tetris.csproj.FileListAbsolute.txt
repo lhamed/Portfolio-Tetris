@@ -1,0 +1,15 @@
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/Portfolio-Tetris.deps.json
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/Portfolio-Tetris.runtimeconfig.json
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/Portfolio-Tetris.runtimeconfig.dev.json
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/Portfolio-Tetris.dll
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/ref/Portfolio-Tetris.dll
+/Users/lhamed/Projects/Portfolio-Tetris/bin/Debug/net5.0/Portfolio-Tetris.pdb
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.csproj.AssemblyReference.cache
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.GeneratedMSBuildEditorConfig.editorconfig
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.AssemblyInfoInputs.cache
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.AssemblyInfo.cs
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.csproj.CoreCompileInputs.cache
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.dll
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/ref/Portfolio-Tetris.dll
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.pdb
+/Users/lhamed/Projects/Portfolio-Tetris/obj/Debug/net5.0/Portfolio-Tetris.genruntimeconfig.cache

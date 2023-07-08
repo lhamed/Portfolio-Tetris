@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Portfolio_Tetris
@@ -7,8 +8,8 @@ namespace Portfolio_Tetris
     /// </summary>
     public class GameDataSet
     {
-        private int height;
-        private int width;
+        public int height;
+        public int width;
         public FlyingBlock currentFlyingBlock;
         public bool[,] fallenBlocks;
 
@@ -22,6 +23,22 @@ namespace Portfolio_Tetris
 
             //TODO 따로 팩토리로 분리할 것 
             blockShapeDictionary = CreateBlockConfiguration();
+        }
+
+        public void RandomlyDropBlock()
+        {
+            Random rand = new Random(DateTime.Now.Second);
+            int target = rand.Next(0, blockShapeDictionary.Count);
+
+            FlyingBlock flyingBlock = new FlyingBlock()
+            {
+                Height = 0,
+                width = 5,
+                shapeKey = target,
+                shapeRotateIndex = 0
+            };
+
+            AddFlyingBlock(flyingBlock);
         }
 
         public void AddFlyingBlock(FlyingBlock block)
@@ -43,8 +60,29 @@ namespace Portfolio_Tetris
                 fallenBlocks[index, j] = false;
             }
         }
-        
-        
+
+        public void ChangeFlyingBlockToFallenBlock(FlyingBlock flyingBlock)
+        {
+            int shapeKey = flyingBlock.shapeKey;
+            int rotateIndex = flyingBlock.shapeRotateIndex;
+            var shapeData = blockShapeDictionary[shapeKey][rotateIndex].Shape;
+            for (int i = 0; i < shapeData.GetLength(0); i++)
+            {
+                for (int j = 0; j < shapeData.GetLength(0); j++)
+                {
+                    if (shapeData[i, j] == true)
+                    {
+                        int height = flyingBlock.Height + i;
+                        int width = flyingBlock.width + j;
+                        fallenBlocks[height, width] = true;
+                    }
+                }
+            }
+
+            currentFlyingBlock = null;
+        }
+
+
         Dictionary<int, BlockShapeData[]> CreateBlockConfiguration()
         {
             var dictonary = new Dictionary<int, BlockShapeData[]>();
@@ -83,9 +121,9 @@ namespace Portfolio_Tetris
                     }
                 }
             };
-            
-            dictonary.Add(1,blockShapeOne);
-            return null;
+
+            dictonary.Add(0, blockShapeOne);
+            return dictonary;
         }
     }
 

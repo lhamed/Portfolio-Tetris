@@ -27,6 +27,7 @@ namespace Portfolio_Tetris
 
         GameDataSet ProcessCreateBlock(GameDataSet dataSet)
         {
+            dataSet.RandomlyDropBlock();
             return dataSet;
         }
 
@@ -60,7 +61,17 @@ namespace Portfolio_Tetris
 
         GameDataSet ProcessGravity(GameDataSet dataSet)
         {
-            dataSet.currentFlyingBlock.Height -= 1;
+            // 한칸 아래에 벽돌이 하나라도 있을 경우 또는 가장 바닥일 경우  
+            // 탐색 
+
+            if (dataSet.currentFlyingBlock.Height + 1 >= dataSet.height)
+            {
+                dataSet.ChangeFlyingBlockToFallenBlock(dataSet.currentFlyingBlock);
+            }
+            else
+            {
+                dataSet.currentFlyingBlock.Height += 1;
+            }
             return dataSet;
         }
 
@@ -80,6 +91,7 @@ namespace Portfolio_Tetris
                     {
                         break;
                     }
+
                     if (blocks[i, blocks.GetLength(1) - 1])
                     {
                         // 모두 true 이므로 사라질 수 있는 행이다. 
@@ -92,6 +104,7 @@ namespace Portfolio_Tetris
             {
                 dataSet.ClearLineNumber(index);
             }
+
             return dataSet;
         }
     }
