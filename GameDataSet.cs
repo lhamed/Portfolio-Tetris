@@ -20,15 +20,16 @@ namespace Portfolio_Tetris
             this.width = width;
             fallenBlocks = new bool[height, width];
 
-            //TODO blockShapeDataDictonary 준비하기 TODO 
+            //TODO 따로 팩토리로 분리할 것 
+            blockShapeDictionary = CreateBlockConfiguration();
         }
 
         public void AddFlyingBlock(FlyingBlock block)
         {
-            // 이미 있다면 나중에 처리해주자. 
+            // 이미 있다면 추가해주지 않는다.  
             if (currentFlyingBlock != null)
             {
-                //TODO 
+                return;
             }
 
             currentFlyingBlock = block;
@@ -36,7 +37,55 @@ namespace Portfolio_Tetris
 
         public void ClearLineNumber(int index)
         {
-            // TODO 특정 줄을 모두 false로 바꾼다. 
+            // 모든 열이 true 인지 탐색 
+            for (int j = 0; j < fallenBlocks.GetLength(1); j++)
+            {
+                fallenBlocks[index, j] = false;
+            }
+        }
+        
+        
+        Dictionary<int, BlockShapeData[]> CreateBlockConfiguration()
+        {
+            var dictonary = new Dictionary<int, BlockShapeData[]>();
+            BlockShapeData[] blockShapeOne = new BlockShapeData[]
+            {
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 0, Shape = new bool[,]
+                    {
+                        {true, false},
+                        {true, true}
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 1, Shape = new bool[,]
+                    {
+                        {false, true},
+                        {true, true}
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 2, Shape = new bool[,]
+                    {
+                        {true, true},
+                        {false, true}
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 3, Shape = new bool[,]
+                    {
+                        {true, true},
+                        {true, false}
+                    }
+                }
+            };
+            
+            dictonary.Add(1,blockShapeOne);
+            return null;
         }
     }
 
