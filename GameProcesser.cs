@@ -22,6 +22,9 @@ namespace Portfolio_Tetris
             // 가로로 다 채운 블록을 사라지게 하는 처리 ( 블록 클리어 처리 )
             var dataSetAfterClearBlock = ClearFullBlock(dataSetAfterGravity);
 
+            // 새 블록 만들기 ( 블록이 없다면 )
+            ProcessCreateBlock(dataSetAfterClearBlock);
+
             return dataSetAfterClearBlock;
         }
 
@@ -34,22 +37,34 @@ namespace Portfolio_Tetris
         GameDataSet ProcessUserInput(GameDataSet dataSet, InputHandler inputHandler)
         {
             var isKeyExist = inputHandler.isProcessed;
-            if (isKeyExist == true)
+            if (isKeyExist)
             {
                 // 처리할 인풋이 있다. 
                 if (inputHandler.currentPressedKey == ConsoleKey.RightArrow)
                 {
-                    dataSet.currentFlyingBlock.width += 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
+                    if (dataSet.width > dataSet.currentFlyingBlock.width)
+                    {
+                        dataSet.currentFlyingBlock.width += 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
+                    }
                 }
                 else if (inputHandler.currentPressedKey == ConsoleKey.LeftArrow)
                 {
-                    dataSet.currentFlyingBlock.width -= 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
+                    if (dataSet.width > 0)
+                    {
+                        dataSet.currentFlyingBlock.width -= 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
+                    }
                 }
                 else if (inputHandler.currentPressedKey == ConsoleKey.UpArrow)
                 {
+                    if (dataSet.currentFlyingBlock.shapeRotateIndex == 3)
+                    {
+                        dataSet.currentFlyingBlock.shapeRotateIndex = 0;
+                    }
+
                     dataSet.currentFlyingBlock.shapeRotateIndex += 1; // TODO 3을 넘으면 0으로 가도록 해야한다. (회전경우의수 한정)
                 }
 
+                inputHandler.isProcessed = false;
                 return dataSet;
             }
             else
@@ -62,16 +77,49 @@ namespace Portfolio_Tetris
         GameDataSet ProcessGravity(GameDataSet dataSet)
         {
             // 한칸 아래에 벽돌이 하나라도 있을 경우 또는 가장 바닥일 경우  
-            // 탐색 
+            bool isNotMovableHeight = false;
+            var flyingBlock = dataSet.currentFlyingBlock;
+            int shapeKey = flyingBlock.shapeKey;
+            int rotateIndex = flyingBlock.shapeRotateIndex;
+            var shapeData = dataSet.blockShapeDictionary[shapeKey][rotateIndex].Shape;
+            for (int i = 0; i < shapeData.GetLength(0); i++)
+            {
+                for (int j = 0; j < shapeData.GetLength(1); j++)
+                {
+                    if (shapeData[i, j])
+                    {
+                        int height = flyingBlock.Height + i;
+                        int width = flyingBlock.width + j;
 
-            if (dataSet.currentFlyingBlock.Height + 1 >= dataSet.height)
+                        // 바닥 체크 
+                        if (dataSet.height - 1 <= height)
+                        {
+                            isNotMovableHeight = true;
+                            break;
+                        }
+
+                        if (dataSet.fallenBlocks[height + 1, width])
+                        {
+                            isNotMovableHeight = true;
+                            break;
+                            // 움직일 수 없는 상태다. 
+                        }
+                    }
+                }
+
+                if (isNotMovableHeight)
+                {
+                    break;
+                }
+            }
+
+            if (isNotMovableHeight)
             {
                 dataSet.ChangeFlyingBlockToFallenBlock(dataSet.currentFlyingBlock);
+                return dataSet;
             }
-            else
-            {
-                dataSet.currentFlyingBlock.Height += 1;
-            }
+
+            dataSet.currentFlyingBlock.Height += 1;
             return dataSet;
         }
 

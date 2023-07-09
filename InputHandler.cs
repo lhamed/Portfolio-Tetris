@@ -12,6 +12,7 @@ namespace Portfolio_Tetris
         
         public void ProcessInputOnce()
         {
+            isProcessed = true;
             var key = Console.ReadKey(true).Key;
             switch (key)
             {

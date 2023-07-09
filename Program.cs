@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Portfolio_Tetris
 {
@@ -10,14 +11,25 @@ namespace Portfolio_Tetris
         static GameProcesser processer = new GameProcesser();
         private static ConsolePainter painter = new ConsolePainter();
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            Task inputTask = ReadInputAsync();
+
             while (true)
             {
-                inputHandler.ProcessInputOnce();
                 processer.Process(gameDataSet, inputHandler);
                 painter.Paint(gameDataSet);
                 Thread.Sleep(1000);
+            }
+            await inputTask;
+        }
+
+        static async Task ReadInputAsync()
+        {
+            while (true)
+            {
+                await Task.Run(() => inputHandler.ProcessInputOnce());
+                await Task.Delay(100);
             }
         }
     }

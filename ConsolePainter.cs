@@ -19,7 +19,7 @@ namespace Portfolio_Tetris
             var shapeData = dataSet.blockShapeDictionary[shapeKey][rotateIndex].Shape;
             for (int i = 0; i < shapeData.GetLength(0); i++)
             {
-                for (int j = 0; j < shapeData.GetLength(0); j++)
+                for (int j = 0; j < shapeData.GetLength(1); j++)
                 {
                     if (shapeData[i, j] == true)
                     {
