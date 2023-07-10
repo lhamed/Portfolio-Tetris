@@ -32,7 +32,7 @@ namespace Portfolio_Tetris
 
             FlyingBlock flyingBlock = new FlyingBlock()
             {
-                Height = 0,
+                height = 0,
                 width = 5,
                 shapeKey = target,
                 shapeRotateIndex = 0
@@ -72,7 +72,7 @@ namespace Portfolio_Tetris
                 {
                     if (shapeData[i, j] == true)
                     {
-                        int height = flyingBlock.Height + i;
+                        int height = flyingBlock.height + i;
                         int width = flyingBlock.width + j;
                         fallenBlocks[height, width] = true;
                     }
@@ -132,7 +132,7 @@ namespace Portfolio_Tetris
     /// </summary>
     public class FlyingBlock
     {
-        public int Height;
+        public int height;
         public int width;
 
         public int shapeKey;

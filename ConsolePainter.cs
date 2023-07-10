@@ -23,7 +23,7 @@ namespace Portfolio_Tetris
                 {
                     if (shapeData[i, j] == true)
                     {
-                        int height = flyingBlock.Height + i;
+                        int height = flyingBlock.height + i;
                         int width = flyingBlock.width + j;
                         blocks[height, width] = true;
                     }

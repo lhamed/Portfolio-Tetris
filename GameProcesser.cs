@@ -44,6 +44,35 @@ namespace Portfolio_Tetris
                 {
                     if (dataSet.width > dataSet.currentFlyingBlock.width)
                     {
+                        var flyingBlock = dataSet.currentFlyingBlock;
+                        int shapeKey = flyingBlock.shapeKey;
+                        int rotateIndex = flyingBlock.shapeRotateIndex;
+                        var shapeData = dataSet.blockShapeDictionary[shapeKey][rotateIndex].Shape;
+                        for (int i = 0; i < shapeData.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < shapeData.GetLength(1); j++)
+                            {
+                                if (shapeData[i, j])
+                                {
+                                    int height = flyingBlock.height + i;
+                                    int width = flyingBlock.width + j;
+
+                                    if (width + 1 >= dataSet.width)
+                                    {
+                                        inputHandler.isProcessed = false;
+                                        return dataSet;
+                                    }
+
+                                    if (dataSet.fallenBlocks[height, width + 1])
+                                    {
+                                        inputHandler.isProcessed = false;
+                                        return dataSet;
+                                        // 움직일 수 없는 상태다. 
+                                    }
+                                }
+                            }
+                        }
+
                         dataSet.currentFlyingBlock.width += 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
                     }
                 }
@@ -51,6 +80,35 @@ namespace Portfolio_Tetris
                 {
                     if (dataSet.width > 0)
                     {
+                        var flyingBlock = dataSet.currentFlyingBlock;
+                        int shapeKey = flyingBlock.shapeKey;
+                        int rotateIndex = flyingBlock.shapeRotateIndex;
+                        var shapeData = dataSet.blockShapeDictionary[shapeKey][rotateIndex].Shape;
+                        for (int i = 0; i < shapeData.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < shapeData.GetLength(1); j++)
+                            {
+                                if (shapeData[i, j])
+                                {
+                                    int height = flyingBlock.height + i;
+                                    int width = flyingBlock.width + j;
+
+                                    if (width <= 0)
+                                    {
+                                        inputHandler.isProcessed = false;
+                                        return dataSet;
+                                    }
+
+                                    if (dataSet.fallenBlocks[height, width - 1])
+                                    {
+                                        inputHandler.isProcessed = false;
+                                        return dataSet;
+                                        // 움직일 수 없는 상태다. 
+                                    }
+                                }
+                            }
+                        }
+
                         dataSet.currentFlyingBlock.width -= 1; //TODO width max 와 min 을 내부에서 한정지어야 한다. 
                     }
                 }
@@ -88,7 +146,7 @@ namespace Portfolio_Tetris
                 {
                     if (shapeData[i, j])
                     {
-                        int height = flyingBlock.Height + i;
+                        int height = flyingBlock.height + i;
                         int width = flyingBlock.width + j;
 
                         // 바닥 체크 
@@ -119,7 +177,7 @@ namespace Portfolio_Tetris
                 return dataSet;
             }
 
-            dataSet.currentFlyingBlock.Height += 1;
+            dataSet.currentFlyingBlock.height += 1;
             return dataSet;
         }
 
@@ -131,20 +189,20 @@ namespace Portfolio_Tetris
             // 모든 행을 탐색 
             for (int i = 0; i < blocks.GetLength(0); i++)
             {
+                bool thisRowIsClear = true;
                 // 모든 열이 true 인지 탐색 
                 for (int j = 0; j < blocks.GetLength(1); j++)
                 {
-                    // 하나라도 false 라면 다음 행으로 넘어가야한다. 
+                    // 하나라도 false 라면 클리어 되면 안된다.  
                     if (blocks[i, j] == false)
                     {
-                        break;
+                        thisRowIsClear = false;
                     }
+                }
 
-                    if (blocks[i, blocks.GetLength(1) - 1])
-                    {
-                        // 모두 true 이므로 사라질 수 있는 행이다. 
-                        possibleClearIndex.Add(i);
-                    }
+                if (thisRowIsClear)
+                {
+                    possibleClearIndex.Add(i);
                 }
             }
 
