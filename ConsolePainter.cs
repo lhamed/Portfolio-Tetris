@@ -38,11 +38,11 @@ namespace Portfolio_Tetris
                 {
                     if (blocks[i, j] == true)
                     {
-                        lineString += "[X]";
+                        lineString += "[0]";
                     }
                     else
                     {
-                        lineString += "[_]";
+                        lineString += "   ";
                     }
                 }
 
