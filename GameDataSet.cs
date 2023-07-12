@@ -92,32 +92,40 @@ namespace Portfolio_Tetris
                 {
                     Key = 0, rotateIndex = 0, Shape = new bool[,]
                     {
-                        {true, false},
-                        {true, true}
+                        {false, false, true, true},
+                        {false, true, true,false},
+                        {false, false, false,false},
+                        {false, false, false,false},
                     }
                 },
                 new BlockShapeData()
                 {
                     Key = 0, rotateIndex = 1, Shape = new bool[,]
                     {
-                        {false, true},
-                        {true, true}
+                        {false, false, false, false},
+                        {false, false, true,false},
+                        {false, false, true,true},
+                        {false, false, false,true},
                     }
                 },
                 new BlockShapeData()
                 {
                     Key = 0, rotateIndex = 2, Shape = new bool[,]
                     {
-                        {true, true},
-                        {false, true}
+                        {false, false, true, true},
+                        {false, true, true,false},
+                        {false, false, false,false},
+                        {false, false, false,false},
                     }
                 },
                 new BlockShapeData()
                 {
                     Key = 0, rotateIndex = 3, Shape = new bool[,]
                     {
-                        {true, true},
-                        {true, false}
+                        {false, false, false, false},
+                        {false, false, true,false},
+                        {false, false, true,true},
+                        {false, false, false,true},
                     }
                 }
             };
@@ -168,8 +176,55 @@ namespace Portfolio_Tetris
                 {
                     Key = 0, rotateIndex = 0, Shape = new bool[,]
                     {
+                        {false, false,false,false},
                         {true, true,true,true},
                         {false, false,false,false},
+                        {false, false,false,false},
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 1, Shape = new bool[,]
+                    {
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 2, Shape = new bool[,]
+                    {
+                        {false, false,false,false},
+                        {true, true,true,true},
+                        {false, false,false,false},
+                        {false, false,false,false},
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 3, Shape = new bool[,]
+                    {
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                        {false, false,true,false,},
+                    }
+                }
+            };
+
+            dictonary.Add(2, blockShapeThree);
+            
+            
+            BlockShapeData[] blockShapeFour = new BlockShapeData[]
+            {
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 0, Shape = new bool[,]
+                    {
+                        {false, true,true,true},
+                        {false, false,false,true},
                         {false, false,false,false},
                         {false, false,false,false},
                     }
@@ -180,8 +235,8 @@ namespace Portfolio_Tetris
                     {
                         {false, false,false,true},
                         {false, false,false,true},
-                        {false, false,false,true},
-                        {false, false,false,true},
+                        {false, false,true,true},
+                        {false, false,false,false},
                     }
                 },
                 new BlockShapeData()
@@ -189,9 +244,9 @@ namespace Portfolio_Tetris
                     Key = 0, rotateIndex = 2, Shape = new bool[,]
                     {
                         {false, false,false,false},
+                        {false, true,false,false},
+                        {false, true,true,true},
                         {false, false,false,false},
-                        {false, false,false,false},
-                        {true, true,true,true},
 
                     }
                 },
@@ -199,15 +254,62 @@ namespace Portfolio_Tetris
                 {
                     Key = 0, rotateIndex = 3, Shape = new bool[,]
                     {
-                        {true, false,false,false},
-                        {true, false,false,false},
-                        {true, false,false,false},
-                        {true, false,false,false},
+                        {false, true,true,true},
+                        {false, false,false,true},
+                        {false, false,false,false},
+                        {false, false,false,false},
                     }
                 }
             };
 
-            dictonary.Add(2, blockShapeThree);
+            dictonary.Add(3, blockShapeFour);
+
+            BlockShapeData[] blockShapeFive = new BlockShapeData[]
+            {
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 0, Shape = new bool[,]
+                    {
+                        {false, true,true,true},
+                        {false, false,true,false},
+                        {false, false,false,false},
+                        {false, false,false,false},
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 1, Shape = new bool[,]
+                    {
+                        {false, false,false,true},
+                        {false, false,true,true},
+                        {false, false,false,true},
+                        {false, false,false,false},
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 2, Shape = new bool[,]
+                    {
+                        {false, false,false,false},
+                        {false,false,true,false},
+                        {false, true,true,true},
+                        {false, false,false,false},
+
+                    }
+                },
+                new BlockShapeData()
+                {
+                    Key = 0, rotateIndex = 3, Shape = new bool[,]
+                    {
+                        {false, true,true,true},
+                        {false, false,true,true},
+                        {false, false,false,false},
+                        {false, false,false,false},
+                    }
+                }
+            };
+
+            dictonary.Add(4, blockShapeFive);
             
             return dictonary;
         }
