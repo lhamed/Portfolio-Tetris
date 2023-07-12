@@ -19,7 +19,7 @@ namespace Portfolio_Tetris
             {
                 processer.Process(gameDataSet, inputHandler);
                 painter.Paint(gameDataSet);
-                Thread.Sleep(100);
+                await Task.Delay(100);
             }
             await inputTask;
         }

@@ -36,8 +36,7 @@ namespace Portfolio_Tetris
 
         GameDataSet ProcessUserInput(GameDataSet dataSet, InputHandler inputHandler)
         {
-            var isKeyExist = inputHandler.isProcessed;
-            if (isKeyExist)
+            if (inputHandler.isProcessed)
             {
                 // 처리할 인풋이 있다. 
                 if (inputHandler.currentPressedKey == ConsoleKey.RightArrow)
@@ -114,12 +113,13 @@ namespace Portfolio_Tetris
                 }
                 else if (inputHandler.currentPressedKey == ConsoleKey.UpArrow)
                 {
-                    if (dataSet.currentFlyingBlock.shapeRotateIndex == 3)
+                    dataSet.currentFlyingBlock.shapeRotateIndex += 1; // TODO 3을 넘으면 0으로 가도록 해야한다. (회전경우의수 한정)
+                    if (dataSet.currentFlyingBlock.shapeRotateIndex == 4)
                     {
                         dataSet.currentFlyingBlock.shapeRotateIndex = 0;
                     }
-
-                    dataSet.currentFlyingBlock.shapeRotateIndex += 1; // TODO 3을 넘으면 0으로 가도록 해야한다. (회전경우의수 한정)
+                    inputHandler.isProcessed = false;
+                    return dataSet;
                 }
 
                 inputHandler.isProcessed = false;

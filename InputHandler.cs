@@ -9,26 +9,30 @@ namespace Portfolio_Tetris
     {
         public ConsoleKey currentPressedKey;
         public bool isProcessed = false;
-        
+
         public void ProcessInputOnce()
         {
-            isProcessed = true;
+            if (isProcessed)
+            {
+                return;
+            }
+
             var key = Console.ReadKey(true).Key;
             switch (key)
             {
-                case ConsoleKey.RightArrow :
+                case ConsoleKey.RightArrow:
                     isProcessed = true;
                     currentPressedKey = ConsoleKey.RightArrow;
                     break;
-                case ConsoleKey.LeftArrow :
+                case ConsoleKey.LeftArrow:
                     isProcessed = true;
                     currentPressedKey = ConsoleKey.LeftArrow;
                     break;
-                case ConsoleKey.UpArrow :
+                case ConsoleKey.UpArrow:
                     isProcessed = true;
                     currentPressedKey = ConsoleKey.UpArrow;
                     break;
-                case ConsoleKey.DownArrow :
+                case ConsoleKey.DownArrow:
                     isProcessed = true;
                     currentPressedKey = ConsoleKey.DownArrow;
                     break;
